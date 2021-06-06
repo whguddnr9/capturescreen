@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <script src="./jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <input type="button" value="click" onclick="javascript:mouseDrag(event)">
+    <p id="coords">coords</p>
+    <canvas id="canvas"></canvas>
+</body>
+
+<script>
+    function mouseDrag(event){
+        var x = event.clientX;
+        var y = event.clientY;
+        var coords = "X coords: " + x + "Y coords: "+y;
+        document.getElementById("coords").innerHTML=coords;
+    }
+</script>
+
+<!-- <script>
+    function moveMouse(event){
+        if(document.addEventListener){
+            document.addEventListener("mousenove", resultFun,false)
+        }
+    }
+</script> -->
+
+<script>
+    $(document).ready(function(){
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext('2d');
+
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "#ff0000";
+
+        var sX, sY, cX, cY;
+        var canvasX = $(cavnas).offset().left;
+        var canvasY = $(canvas).offset().top;
+        var draw = false;       //마우스클릭한지 안한지 체크할 변수
+
+        $("canvas").mousedown(function(e){      //마우스가 눌렸을 경우
+            sX=parseInt(e.clientX-cavnasX);
+            sY=parseInt(e.clientY-canvasY);
+            draw=True;
+        });
+        $("canvas").mousemove(function(e){
+            if(draw){
+                cX=parseInt(e.clientX-cnavasX);
+                cY=parseInt(e.clientY-canvasY);
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.strokeRect(sX,sY,cX-sX,cY-sY);
+            }
+        });
+        $("canvas").mouseup(function(e){
+            draw=false;
+        });
+    });
+</script>
+
+</html>
+

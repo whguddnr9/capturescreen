@@ -10,7 +10,7 @@
 <body>
     <input type="button" value="캡쳐" id="edit" />
     <div style="width: 80%;">
-        <img src="./images/aa.png">
+        <!-- <img src="./images/aa.png"> -->
     </div>
     <a id="target" style="display: none"></a>
     <script>
@@ -91,6 +91,7 @@
                     var bottom = height - Math.max(y, startY);
                     var left = Math.min(x, startX);
                     $screenBg.style.borderWidth = top + 'px ' + right + 'px ' + bottom + 'px ' + left + 'px';
+                    console.log(top,right,bottom,left);
                 }
             }
             body.addEventListener("mousemove", mousemove);
