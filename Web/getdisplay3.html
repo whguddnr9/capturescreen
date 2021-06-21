@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>getDisplay2</title>
+    <title>getDisplay3</title>
     <link href='getDisplay1.css' rel='stylesheet' />
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link href='getDisplay1.css' rel='stylesheet'/>
@@ -37,7 +37,7 @@
         const context = canvas.getContext('2d');
 
         context.drawImage(bitmap,0,0,bitmap.width,bitmap.height);
-        const img = canvas.toDataURL();
+        const img = canvas.toDataURL("image/png");
         const res = await fetch(img);
         const buff = await res.arrayBuffer();
 
@@ -139,11 +139,11 @@
         function save(canvas) {
             if (navigator.msSaveBlob) {
                 var blob = canvas.msToBlob();
-                return navigator.msSaveBlob(blob, '파일명.jpg');
+                return navigator.msSaveBlob(blob, '파일명.png');
             } else {
                 var el = document.getElementById("target");
-                el.href = canvas.toDataURL("image/jpeg");
-                el.download = '파일명.jpg';
+                el.href = canvas.toDataURL("image/png");
+                el.download = '파일명.png';
                 el.click();
             }
         }
