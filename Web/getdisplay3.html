@@ -42,8 +42,8 @@
         const buff = await res.arrayBuffer();
 
         const file = [
-            new File([buff],'photo_${new Date()}.jpg',{
-                type:'image/jpeg'
+            new File([buff],'photo_${new Date()}.png',{
+                type:'image/png'
             })
         ];
         return file;
