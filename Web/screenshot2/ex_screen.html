@@ -1,55 +1,56 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>getDisplay3</title>
-    <link href='getDisplay1.css' rel='stylesheet' />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex_screen</title>
+    <link rel="stylesheet" href="./ex_capture.css">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <link href='getDisplay1.css' rel='stylesheet'/>
-</head>
 
+</head>
 <body>
-    
-    <button id='btn'>Take Screenshot</button>
-    <button id='edit'>captures</button>
+    <button id="cake">takeScreenShot</button>
     <a id="target" style="display: none"></a>
 
-    <!-- <img src='Frame.png' id='frame' /> -->
-    <canvas id='screenshot'></canvas>
+    <br />
+    <button id='edit'>capture</button>
+
+    <canvas id="fake"></canvas>
 
 </body>
-<script type="text/javascript">
-    const a = navigator.mediaDevices.getDisplayMedia;
-    const takeScreenShot = async() =>{
-        const stream = await navigator.mediaDevices.getDisplayMedia({
-            video: {mediaSource:'screen'}
-        });
 
-        const track = stream.getVideoTracks()[0];
-        const image = new ImageCapture(track);
-        const bitmap = await image.grabFrame();
-        track.stop();
-        const canvas = document.getElementById('screenshot');
-        canvas.width = bitmap.width;
-        canvas.height = bitmap.height;
+<script>
+    const canIRun  = navigator.mediaDevices.getDisplayMedia 
 
-        const context = canvas.getContext('2d');
+const takeScreenShot = async () => {
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: { mediaSource: 'screen' },
+      })
+      const track = stream.getVideoTracks()[0]
+      const imageCapture = new ImageCapture(track)
+      const bitmap = await imageCapture.grabFrame()
+      track.stop()
 
-        context.drawImage(bitmap,0,0,bitmap.width,bitmap.height);
-        const img = canvas.toDataURL("image/png",1);
-        const res = await fetch(img);
-        const buff = await res.arrayBuffer();
+      const canvas = document.getElementById('fake') 
+      canvas.width = bitmap.width
+      canvas.height = bitmap.height
 
-        const file = [
-            new File([buff],'photo_${new Date()}.png',{
-                type:'image/png'
-            })
-        ];
-        return file;
-    };
+      const context = canvas.getContext('2d')
+      context.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height)
+      const image = canvas.toDataURL()
 
-    const button = document.getElementById('btn').onclick = () => a ? takeScreenShot() :{};
+      const res = await fetch(image)
+      const buff = await res.arrayBuffer()
+      const file = [
+        new File([buff], `photo_${new Date()}.png`, {
+          type: 'image/png',
+        }),
+      ]
+      return file 
+}     
+
+const button = document.getElementById('cake').onclick = () => canIRun ? takeScreenShot() : {}
+
 
 </script>
 <script>
@@ -149,5 +150,4 @@
         }
     }
 </script>
-
 </html>
